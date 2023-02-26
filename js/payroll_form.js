@@ -121,6 +121,34 @@ window.addEventListener('DOMContentLoaded', (event) => {
         output.textContent = salary.value;
     });
 });
+const createEmployeePayrollData = () => {
+    let employeePayrollData = new EmployeePayrollData();
+    try{
+        employeePayrollData.name = document.querySelector('#name').value;
+    } catch(e) {
+        document.querySelector('.text-error').textContent(e);
+        throw e;
+    }
+    employeePayrollData.profilePic = document.querySelector('input[name="profile"]:checked').value;
+    employeePayrollData.gender = document.querySelector('input[name="gender"]:checked').value;
+    employeePayrollData.department = document.querySelector('input[type="checkbox"]:checked').value;
+    employeePayrollData.salary = document.querySelector('#salary').value;
+    employeePayrollData.startDate = document.getElementById("start-date").value;
+    employeePayrollData.note = document.querySelector('#notes').value;
+    return employeePayrollData;
+}
+
+function createOrUpdateStorage(employeePayrollData){
+    let employeePayrollDataList = JSON.parse(localStorage.getItem("employeePayrollDataList"));
+    
+    if (employeePayrollDataList != undefined) {
+        employeePayrollDataList.push(employeePayrollData);
+    } else {
+        employeePayrollDataList = [employeePayrollData];
+    }
+    alert(employeePayrollData.toString());
+    localStorage.setItem("employeePayrollDataList", JSON.stringify(employeePayrollDataList));
+}
 
 
 
